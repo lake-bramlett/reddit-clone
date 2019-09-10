@@ -6,16 +6,25 @@ export default class FeedPostPreview extends Component {
     super(props)
   }
 
+  upvote = () => {
+    console.log(this.props.index);
+    this.props.upvote(this.props.index)
+  }
+
+  downvote = () => {
+    this.props.downvote(this.props.index)
+  }
+
   render(){
     const { icon, upvotes, title, username, subreddit, hours } = this.props.post;
     return (
       <div className="feed-post-preview">
         <div className="feed-post-votes">
-          <div className="vote-up arrow">
+          <div className="vote-up arrow" onClick={this.upvote}>
             <img src={arrow} alt="up vote" />
           </div>
           <span className="upvotes">{upvotes}</span>
-          <div className="vote-down arrow">
+          <div className="vote-down arrow" onClick={this.downvote}>
             <img src={arrow} alt="down vote" />
           </div>
         </div>

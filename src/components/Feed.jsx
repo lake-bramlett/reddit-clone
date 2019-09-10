@@ -12,7 +12,7 @@ export default class Feed extends Component {
         <ul>
         {this.props.feedPosts.map((post, index) => (
           <li>
-            <FeedPostPreview post={post} key={index}/>
+            <FeedPostPreview post={post} key={index} index={index} upvote={this.props.upvote} downvote={this.props.downvote}/>
           </li>
         ))}
         </ul>

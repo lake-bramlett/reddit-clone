@@ -19,11 +19,25 @@ class App extends Component{
   }
 
   addPostToList = (post) => {
-
     console.log('second log:' + post);
     let temp = this.state.feedPosts.slice()
     temp.push(post)
     this.setState({ feedPosts: temp}, console.log(this.state.feedPosts))
+  }
+
+  upvote = (key) => {
+    console.log('key', key);
+    console.log('this works Jacob')
+    let temp = this.state.feedPosts.slice()
+    console.log('temp', temp);
+    temp[key].upvotes++;
+    this.setState({ feedPosts: temp })
+  }
+
+  downvote = (key) => {
+    let temp = this.state.feedPosts.slice()
+    temp[key].upvotes--;
+    this.setState({ feedPosts: temp })
   }
 
   render() {
@@ -33,7 +47,7 @@ class App extends Component{
           <div>
             <Navbar />
             <Switch>
-              <Route exact path="/" render={()=><Home feedPosts={this.state.feedPosts} />} />
+              <Route exact path="/" render={()=><Home feedPosts={this.state.feedPosts} upvote={this.upvote} downvote={this.downvote}/>} />
               <Route exact path="/new_post" render={()=><NewPostForm callback={this.addPostToList} />} />
             </Switch>
           </div>

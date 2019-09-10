@@ -13,7 +13,7 @@ class Home extends Component {
     return (
       <div className="Home">
         <HomeHeader />
-        <Feed feedPosts={this.props.feedPosts} />
+        <Feed feedPosts={this.props.feedPosts} upvote={this.props.upvote} downvote={this.props.downvote}/>
         <SideBar />
       </div>
     )
