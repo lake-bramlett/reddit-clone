@@ -37,7 +37,7 @@ export default class FeedPostPreview extends Component {
           <div className="feed-post-info">
             <h5 className="post-preview-title">{title}</h5>
             <div className="post-preview-sub-info">
-              submitted <span className="hours">{timestamp}</span> hours ago by <span className="user">{username}</span> to r/<span className="subreddit">{subreddit}</span>
+              submitted <span className="hours">{timestamp}</span> by <span className="user">{username}</span> to r/<span className="subreddit">{subreddit}</span>
             </div>
           </div>
           </a>
