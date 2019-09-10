@@ -23,6 +23,7 @@ export default class NewPostForm extends Component {
                          upvotes: 0,
                          subreddit: "AskReddit",
                          icon: postIcon,
+                         timestamp: null,
                        })
     this.setState({ stateChange: true })
   }

@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Home from './components/Home'
 import NewPostForm from './components/NewPostForm';
 import postIcon from './assets/post-icon.png';
+import Moment from 'react-moment';
+var moment = require('moment');
 
 import Routes from './Routes';
 
@@ -22,6 +24,7 @@ class App extends Component{
         upvotes: 0,
         subreddit: 'Politics',
         icon: postIcon,
+        timestamp: moment(moment()).fromNow(),
       },
       {
         title: 'Printer',
@@ -31,6 +34,7 @@ class App extends Component{
         upvotes: 0,
         subreddit: 'funny',
         icon: postIcon,
+        timestamp: moment("2018-09-04T18:30:00.000Z").fromNow(),
       },
 
       ]
@@ -41,8 +45,10 @@ class App extends Component{
   addPostToList = (post) => {
     console.log('second log:' + post);
     let temp = this.state.feedPosts.slice()
+    post.timestamp = moment(moment()).fromNow()
     temp.push(post)
     temp.sort((a, b) => (a.upvotes < b.upvotes) ? 1 : -1)
+    console.log(temp)
     this.setState({ feedPosts: temp}, console.log(this.state.feedPosts))
   }
 

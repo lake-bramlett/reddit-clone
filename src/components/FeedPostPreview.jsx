@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import arrow from '../assets/arrow.png'
+import Moment from 'react-moment';
+var moment = require('moment');
 
 export default class FeedPostPreview extends Component {
   constructor(props){
@@ -16,7 +18,7 @@ export default class FeedPostPreview extends Component {
   }
 
   render(){
-    const { icon, upvotes, title, username, subreddit, hours } = this.props.post;
+    const { icon, upvotes, title, username, subreddit, hours, timestamp } = this.props.post;
     return (
         <div className="feed-post-preview">
           <div className="feed-post-votes">
@@ -35,7 +37,7 @@ export default class FeedPostPreview extends Component {
           <div className="feed-post-info">
             <h5 className="post-preview-title">{title}</h5>
             <div className="post-preview-sub-info">
-              submitted <span className="hours">{hours}</span> hours ago by <span className="user">{username}</span> to r/<span className="subreddit">{subreddit}</span>
+              submitted <span className="hours">{timestamp}</span> hours ago by <span className="user">{username}</span> to r/<span className="subreddit">{subreddit}</span>
             </div>
           </div>
           </a>
