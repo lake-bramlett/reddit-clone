@@ -7,7 +7,14 @@ class Home extends Component {
     super(props)
 
     this.state = {
-      feedPosts: [{username: "Tim"}]
+      feedPosts: [{title: "What is a question you posted on AskReddit you really wanted to know but wasn't upvoted enough to be answered?",
+                  text: "",
+                  username: "Tim",
+                  hours: 8,
+                  upvotes: 20,
+                  subreddit: "AskReddit",
+                  icon: null,
+      }]
     }
   }
   render() {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Post from './Post';
+import FeedPostPreview from './FeedPostPreview';
 
 export default class Feed extends Component {
   constructor(props){
@@ -12,7 +12,7 @@ export default class Feed extends Component {
         <ul>
         {this.props.feedPosts.map((post, index) => (
           <li>
-            <Post post={post} key={index}/>
+            <FeedPostPreview post={post} key={index}/>
           </li>
         ))}
         </ul>

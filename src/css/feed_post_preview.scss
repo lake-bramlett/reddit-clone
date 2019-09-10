@@ -1,0 +1,37 @@
+div.feed-post-votes, div.feed-post-icon, div.feed-post-info {
+  display: inline-block;
+}
+
+div.feed-post-preview span.upvotes {
+  width: 48px;
+  margin: 0px 7px;
+}
+
+div.feed-post-preview div.arrow {
+  height: 15px;
+  width: 15px;
+}
+
+div.feed-post-preview div.arrow img {
+  height: 100%;
+  width: auto;
+}
+
+div.feed-post-preview div.vote-up img {
+  transform: rotateX(180deg);
+}
+
+div.feed-post-preview div.feed-post-icon {
+  width: 70px;
+  height: 50px;
+}
+
+div.feed-post-preview div.feed-post-info h5 {
+  font-size: 16px;
+  font-weight: 400 ;
+}
+
+div.feed-post-preview div.feed-post-info div.post-preview-sub-info {
+  font-size: 10px;
+  color: #888;
+}

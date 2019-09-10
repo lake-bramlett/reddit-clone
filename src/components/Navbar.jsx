@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import SideBar from './SideBar'
 
 export default function Navbar() {
   return (
@@ -18,6 +19,7 @@ export default function Navbar() {
 
           </ul>
         </nav>
+        <SideBar/>
       </div>
   )
 }
