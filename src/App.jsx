@@ -45,7 +45,7 @@ class App extends Component{
   addPostToList = (post) => {
     console.log('second log:' + post);
     let temp = this.state.feedPosts.slice()
-    post.timestamp = moment(moment()).fromNow()
+    post.timestamp = moment(moment()).fromNow() //this will be retooled in the future for when state changes and instead inside moment() would be a time stamp, and the logic here will live in the state change.
     temp.push(post)
     temp.sort((a, b) => (a.upvotes < b.upvotes) ? 1 : -1)
     console.log(temp)
