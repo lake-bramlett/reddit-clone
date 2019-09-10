@@ -19,7 +19,6 @@ export default function Navbar() {
 
           </ul>
         </nav>
-        <SideBar/>
       </div>
   )
 }

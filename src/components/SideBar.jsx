@@ -5,7 +5,7 @@ import NewPostForm from './NewPostForm';
 export default function SideBar() {
   return (
       <div className="sideBar">
-        <button><Link to="/new_post" >Submit Text Post</Link></button>
+        <button><Link to="/new_post">Submit Text Post</Link></button>
       </div>
   )
 }

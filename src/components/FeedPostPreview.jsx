@@ -7,7 +7,7 @@ export default class FeedPostPreview extends Component {
   }
 
   render(){
-    const { icon, upvotes, title, username, subreddit, hours } = this.props.post
+    const { icon, upvotes, title, username, subreddit, hours } = this.props.post;
     return (
       <div className="feed-post-preview">
         <div className="feed-post-votes">
