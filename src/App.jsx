@@ -5,6 +5,17 @@ import Home from './components/Home'
 import NewPostForm from './components/NewPostForm';
 import postIcon from './assets/post-icon.png';
 import Moment from 'react-moment';
+import fakerFile from './assets/postData.json';
+import Post from './components/Post'
+
+// adding the post-icon to each post in fakerFile
+fakerFile.forEach(function(post){
+  post["icon"] = postIcon
+})
+
+
+
+
 var moment = require('moment');
 
 import Routes from './Routes';
@@ -16,47 +27,21 @@ class App extends Component{
     super(props)
 
     this.state = {
-      feedPosts: [{
-        title: 'Megathread: National Security Adviser John Bolton has resigned at the request of the president, citing policy disagreements',
-        text: 'President Trump fired John R. Bolton, his third national security adviser, on Tuesday amid fundamental disagreements over how to handle major foreign policy challenges like Iran, North Korea and Afghanistan. Mr. Trump announced the decision on Twitter. "I informed John Bolton last night that his services are no longer needed at the White House. I disagreed strongly with many of his suggestions, as did others in the Administration, and therefore I asked John for his resignation, which was given to me this morning. I thank John very much for his service. I will be naming a new National Security Advisor next week. - NY Times(edited)',
-        username: 'PoliticsModeratorBot',
-        hours: 6,
-        upvotes: 0,
-        subreddit: 'Politics',
-        icon: postIcon,
-        timestamp: moment(moment()).fromNow(),
-      },
-      {
-        title: 'Printer',
-        text: '',
-        username: 'dogcat',
-        hours: 4,
-        upvotes: 0,
-        subreddit: 'funny',
-        icon: postIcon,
-        timestamp: moment("2018-09-04T18:30:00.000Z").fromNow(),
-      },
-
-      ]
+      feedPosts: fakerFile
     }
   }
 
 
   addPostToList = (post) => {
-    console.log('second log:' + post);
     let temp = this.state.feedPosts.slice()
     post.timestamp = moment(moment()).fromNow() //this will be retooled in the future for when state changes and instead inside moment() would be a time stamp, and the logic here will live in the state change.
     temp.push(post)
     temp.sort((a, b) => (a.upvotes < b.upvotes) ? 1 : -1)
-    console.log(temp)
-    this.setState({ feedPosts: temp}, console.log(this.state.feedPosts))
+    this.setState({ feedPosts: temp})
   }
 
   upvote = (key) => {
-    console.log('key', key);
-    console.log('this works Jacob')
     let temp = this.state.feedPosts.slice()
-    console.log('temp', temp);
     temp[key].upvotes++;
     temp.sort((a, b) => (a.upvotes < b.upvotes) ? 1 : -1)
     this.setState({ feedPosts: temp })
@@ -69,6 +54,22 @@ class App extends Component{
     this.setState({ feedPosts: temp })
   }
 
+  handleSelectPost = (key) => {
+    const paramsId = parseInt(key);
+    let temp = this.state.feedPosts.slice();
+    // return temp[key];
+    const post = temp.filter( post => {
+      console.log(post.id);
+      console.log(paramsId);
+      if (post.id === paramsId){
+        return post
+      }
+
+    })
+    console.log("this is the handleSelectPost post:", post);
+    return post[0]
+  }
+
   render() {
     return (
       <div>
@@ -78,6 +79,7 @@ class App extends Component{
             <Switch>
               <Route exact path="/" render={()=><Home feedPosts={this.state.feedPosts} upvote={this.upvote} downvote={this.downvote}/>} />
               <Route exact path="/new_post" render={()=><NewPostForm callback={this.addPostToList} />} />
+              <Route exact path="/post/:id" render={ (props)=> <Post post={this.handleSelectPost(props.match.params.id)}/>}  />
             </Switch>
           </div>
         </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import arrow from '../assets/arrow.png'
-import Moment from 'react-moment';
+// import Moment from 'react-moment';
 var moment = require('moment');
 
 export default class FeedPostPreview extends Component {
@@ -19,6 +19,7 @@ export default class FeedPostPreview extends Component {
 
   render(){
     const { icon, upvotes, title, username, subreddit, hours, timestamp } = this.props.post;
+    console.log(moment(timestamp))
     return (
         <div className="feed-post-preview">
           <div className="feed-post-votes">
@@ -30,14 +31,14 @@ export default class FeedPostPreview extends Component {
               <img src={arrow} alt="down vote" />
             </div>
           </div>
-          <a href="/">
+          <a href={`/post/${this.props.post.id}`}>
           <div className="feed-post-icon">
             <img src={icon} alt="post preview icon" />
           </div>
           <div className="feed-post-info">
             <h5 className="post-preview-title">{title}</h5>
             <div className="post-preview-sub-info">
-              submitted <span className="hours">{timestamp}</span> by <span className="user">{username}</span> to r/<span className="subreddit">{subreddit}</span>
+              submitted <span className="hours">{moment(timestamp).fromNow()}</span> by <span className="user">{username}</span> to r/<span className="subreddit">{subreddit}</span>
             </div>
           </div>
           </a>

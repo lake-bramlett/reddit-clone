@@ -23,6 +23,7 @@ module.exports = {
       'Access-Control-Allow-Origin': '*',
     },
     historyApiFallback: true,
+    contentBase: './'
   },
   entry: ['@babel/polyfill', 'whatwg-fetch', 'react-hot-loader/patch', path.join(__dirname, '/src/index.jsx')],
   module: {
