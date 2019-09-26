@@ -1,38 +1,48 @@
-import React, {Component} from 'react';
-import {Link,Redirect} from 'react-router-dom';
-import postIcon from '../assets/post-icon.png';
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
 
-let _title = null;
-let _text = null;
+// redux
+import { connect } from "react-redux";
 
-export default class NewPostForm extends Component {
+// actions
+import { addPost } from "./../actions";
 
-  constructor(props){
-    super(props)
+import postIcon from "../assets/post-icon.png";
+
+class NewPostForm extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      stateChange: false
-    }
+      title: "",
+      text: ""
+    };
   }
 
-  handleNewPostFormSubmission = (e) => {
-    e.preventDefault()
-    this.props.callback({title: _title.value,
-                         text: _text.value,
-                         username: "Tim",
-                         hours: 8,
-                         upvotes: 0,
-                         subreddit: "AskReddit",
-                         icon: postIcon,
-                         timestamp: null,
-                       })
-    this.setState({ stateChange: true })
-  }
+  handleChange = event => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
 
-  render(){
+  handleNewPostFormSubmission = e => {
+    e.preventDefault();
 
+    this.props.addPost({
+      title: this.state.title,
+      text: this.state.text,
+      username: "Tim",
+      hours: 8,
+      upvotes: 0,
+      subreddit: "AskReddit",
+      icon: postIcon,
+      timestamp: new Date()
+    });
+
+    this.setState({ stateChange: true });
+  };
+
+  render() {
     const stateChange = this.state.stateChange;
-    if(stateChange === true) {
-      return <Redirect to="/" />
+    if (stateChange === true) {
+      return <Redirect to="/" />;
     }
 
     return (
@@ -40,21 +50,30 @@ export default class NewPostForm extends Component {
         <div className="new-post-form">
           <form onSubmit={this.handleNewPostFormSubmission}>
             <input
-            type='text'
-            id='title'
-            placeholder='title'
-            ref={(input) => {_title = input;}}/>
+              onChange={this.handleChange}
+              type="text"
+              id="title"
+              placeholder="title"
+            />
             <input
-            type='text'
-            id='text'
-            placeholder='your post'
-            ref={(input) => {_text = input;}}/>
+              onChange={this.handleChange}
+              type="text"
+              id="text"
+              placeholder="your post"
+            />
             <div className="center">
-            <button className="form-btn" type='submit'>Submit</button>
+              <button className="form-btn" type="submit">
+                Submit
+              </button>
             </div>
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
+
+export default connect(
+  null,
+  { addPost }
+)(NewPostForm);

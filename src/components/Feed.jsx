@@ -1,23 +1,33 @@
-import React, {Component} from 'react';
-import FeedPostPreview from './FeedPostPreview';
-import { v4 } from 'uuid';
+import React, { Component } from "react";
+import FeedPostPreview from "./FeedPostPreview";
+import { v4 } from "uuid";
 
-export default class Feed extends Component {
-  constructor(props){
-    super(props)
+// redux
+import { connect } from "react-redux";
+
+class Feed extends Component {
+  constructor(props) {
+    super(props);
   }
 
-  render(){
+  render() {
     return (
       <div className="feed">
         <ul>
-        {this.props.feedPosts.map((post, index) => (
-          <li>
-            <FeedPostPreview post={post} key={v4()} index={index} upvote={this.props.upvote} downvote={this.props.downvote}/>
-          </li>
-        ))}
+          {this.props.feedPosts.map(post => (
+            <li key={v4()}>
+              <FeedPostPreview post={post} key={v4()} />
+            </li>
+          ))}
         </ul>
       </div>
-    )
+    );
   }
 }
+
+const mapStateToProps = state => {
+  console.log(state);
+  return { feedPosts: state.posts.feedPosts };
+};
+
+export default connect(mapStateToProps)(Feed);

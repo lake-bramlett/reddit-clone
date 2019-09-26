@@ -1,48 +1,72 @@
-import React, {Component} from 'react'
-import arrow from '../assets/arrow.png'
+import React, { Component } from "react";
+
+// redux
+import { connect } from "react-redux";
+// actions
+import { upvote, addPost } from "./../actions";
+
+import arrow from "../assets/arrow.png";
 // import Moment from 'react-moment';
-var moment = require('moment');
+var moment = require("moment");
 
-export default class FeedPostPreview extends Component {
-  constructor(props){
-    super(props)
-  }
-
-  upvote = () => {
-    console.log(this.props.index);
-    this.props.upvote(this.props.index)
+class FeedPostPreview extends Component {
+  constructor(props) {
+    super(props);
   }
 
   downvote = () => {
-    this.props.downvote(this.props.index)
-  }
+    this.props.downvote(this.props.index);
+  };
 
-  render(){
-    const { icon, upvotes, title, username, subreddit, hours, timestamp } = this.props.post;
-    console.log(moment(timestamp))
+  render() {
+    const {
+      id,
+      icon,
+      upvotes,
+      title,
+      username,
+      subreddit,
+      hours,
+      timestamp
+    } = this.props.post;
+
+    const { upvote } = this.props;
+
     return (
-        <div className="feed-post-preview">
-          <div className="feed-post-votes">
-            <div className="vote-up arrow" onClick={this.upvote}>
-              <img src={arrow} alt="up vote" />
-            </div>
-            <span className="upvotes">{upvotes}</span>
-            <div className="vote-down arrow" onClick={this.downvote}>
-              <img src={arrow} alt="down vote" />
-            </div>
+      <div className="feed-post-preview">
+        <div className="feed-post-votes">
+          <div className="vote-up arrow" onClick={() => upvote(id)}>
+            <img src={arrow} alt="up vote" />
           </div>
-          <a href={`/post/${this.props.post.id}`}>
+          <span className="upvotes">{upvotes}</span>
+          <div className="vote-down arrow" onClick={this.downvote}>
+            <img src={arrow} alt="down vote" />
+          </div>
+        </div>
+        <a href={`/post/${this.props.post.id}`}>
           <div className="feed-post-icon">
             <img src={icon} alt="post preview icon" />
           </div>
           <div className="feed-post-info">
             <h5 className="post-preview-title">{title}</h5>
             <div className="post-preview-sub-info">
-              submitted <span className="hours">{moment(timestamp).fromNow()}</span> by <span className="user">{username}</span> to r/<span className="subreddit">{subreddit}</span>
+              submitted{" "}
+              <span className="hours">{moment(timestamp).fromNow()}</span> by{" "}
+              <span className="user">{username}</span> to r/
+              <span className="subreddit">{subreddit}</span>
             </div>
           </div>
-          </a>
-        </div>
-    )
+        </a>
+      </div>
+    );
   }
 }
+
+const mapStateToProps = state => {
+  return { feedPosts: state.posts.feedPosts };
+};
+
+export default connect(
+  mapStateToProps,
+  { upvote }
+)(FeedPostPreview);

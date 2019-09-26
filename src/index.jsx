@@ -6,28 +6,54 @@
 */
 
 // react dependencies
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 // hot reload for development
-import { AppContainer } from 'react-hot-loader';
+import { AppContainer } from "react-hot-loader";
 
-import App from './App';
+// redux
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import rootReducer from "./reducers/index.js";
 
-import './style.scss';
+// thunk
+import thunk from "redux-thunk";
 
-const root = document.getElementById('root');
+// firebase
+import { reduxFirestore, getFirestore } from "redux-firestore";
+import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
+import firebaseConfig from "./firebaseConfig";
 
-const render = (Component) => {
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+    reactReduxFirebase(firebaseConfig), // redux binding for firebase
+    reduxFirestore(firebaseConfig) // redux bindings for firestore
+  )
+);
+
+import App from "./App";
+
+import "./style.scss";
+
+const root = document.getElementById("root");
+
+const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Provider store={store}>
+        <Component />
+      </Provider>
     </AppContainer>,
-    root,
+    root
   );
 };
 
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./App', () => { render(App); });
+  module.hot.accept("./App", () => {
+    render(App);
+  });
 }
